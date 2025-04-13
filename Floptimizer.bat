@@ -158,9 +158,12 @@ sc stop "hidserv"
 echo Finished!  Returning.. && timeout 2 >nul && goto lf
 
 :l2
-:: Fixes latency by setting power plan idle demote/promote to 100% within "core parking minimum cores"
+:: Fixes latency by setting power plan idle demote/promote to 100% within "core parking minimum cores" (basically unpaking all cores on AC)
+:: Sets power plan GUID as variable and uses it as %app%
 for /f "tokens=3" %%i in ('reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes" /v ActivePowerScheme') do set app=%%i
+:: Core parking disabled (set to 100)
 powercfg -setacvalueindex %app% 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318583 100 >nul
+:: Idle demote and promote (set to 100)
 powercfg -setacvalueindex %app% 54533251-82be-4824-96c1-47b60b740d00 4b92d758-5a24-4851-a470-815d78aee119 100 >nul
 powercfg -setacvalueindex %app% 54533251-82be-4824-96c1-47b60b740d00 7b224883-b3cc-4d79-819f-8374152cbe7c 100 >nul
 echo Finished!  Returning.. && timeout 2 >nul && goto lf
