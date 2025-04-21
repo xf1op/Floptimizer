@@ -188,6 +188,7 @@ echo Finished!  Returning.. && timeout 2 >nul && goto gt
 :g3
 :: Disable Game DVR (some needless game recording thing)
 reg add "HKCU\System\GameConfigStore" /v GameDVR_Enabled /t REG_DWORD /d 0 /f >nul
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR" /v AppCaptureEnabled /t REG_DWORD /d 0 /f >nul
 echo Finished!  Returning.. && timeout 2 >nul && goto gt
 
 :g4
