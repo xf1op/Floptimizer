@@ -1,6 +1,6 @@
 Description was made by AI. I'm too lazy to make it.
 
-### All services here are DEFAULT (few not), if you need to reset them take this list for yourself.
+### All services here are DEFAULT in windows (some arent), if you need to reset them take this list for yourself.
 | Service Display Name | Startup Type | Description |
 |-|-|-|
 | ActiveX Installer (AxInstSV) | Manual | Provides User Account Control (UAC) validation for Windows Installer installations using ActiveX. |
