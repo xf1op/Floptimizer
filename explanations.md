@@ -1,6 +1,6 @@
 | Name | Explanation / Description |
 |-|-|
-| **Network Auto-Tuning** | is a Windows feature that automatically adjusts how much data your system can receive over a network to improve speed and efficiency. If disabled improves internet bufferbloat. |
+| **Network Auto-Tuning** | is a Windows feature that automatically adjusts how much data your system can receive over a network to improve speed and efficiency. If disabled,improves internet bufferbloat. |
 | **UDP (User Datagram Protocol)** | is a lightweight internet protocol that sends data quickly without checking if it arrives correctly. It’s great for real-time tasks like gaming or streaming, where speed matters more than perfect delivery. |
 | **Network Throttling Index** | is a Windows setting that controls how fast your computer processes network data, especially during multimedia tasks like gaming or video playback. Tweaking it can help reduce lag and improve online performance by allowing more bandwidth to flow without limits. |
 | **HID Service (Human Interface Device Service)** | is a Windows feature that lets your computer communicate with input devices like keyboards, mice, and game controllers. Users (and FrameSync Labs) say that it decreases input lag if disabled. |
