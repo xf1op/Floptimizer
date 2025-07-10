@@ -191,7 +191,7 @@ Description was made by AI. I'm too lazy to make it.
 | SSDP Discovery | Manual | Discovers UPnP devices on the network. (**Safe to disable ✅**) |
 | SshdBroker | Manual | Manages SSH broker services. |
 | State Repository Service | Manual | Manages app state repository. |
-| Still Image Acquisition Events | Manual | Manages camera and scanner events. |
+| Still Image Acquisition Events | Manual | Manages camera and scanner events. (**Safe to disable ✅**) |
 | Storage Service | Automatic (Delayed Start, Trigger Start) | Manages storage-related services. |
 | Storage Tiers Management | Manual | Manages storage tiers and policies. |
 | Sync Host | Automatic (Delayed Start) | Manages syncing of files and settings. (**Safe to disable ✅**) |
@@ -206,7 +206,7 @@ Description was made by AI. I'm too lazy to make it.
 | Time Broker | Manual (Trigger Start) | Manages background task execution. |
 | Touch Keyboard and Handwriting Panel Service | Manual (Trigger Start) | Supports touch keyboard and handwriting input. |
 | Udk User Service | Manual | Manages user services for UDK. |
-| Update Orchestrator Service | Automatic (Delayed Start) | Manages Windows updates. (**Safe to disable ✅**) |
+| Update Orchestrator Service | Automatic (Delayed Start) | Manages Windows updates. (**Safe to disable ✅**, re-enables itself most of the time) |
 | UPnP Device Host | Manual | Hosts UPnP devices on the network. |
 | User Data Access | Manual | Manages user data access for apps. (**Safe to disable ✅**) |
 | User Data Storage | Manual | Stores user data for applications. (**Safe to disable ✅**) |
@@ -216,7 +216,7 @@ Description was made by AI. I'm too lazy to make it.
 | Virtual Disk | Manual | Manages virtual disk operations. |
 | Volume Shadow Copy | Manual | Provides backup and restore using shadow copies. |
 | Volumetric Audio Compositor Service | Manual | Manages 3D audio effects. |
-| WalletService | Manual | Manages digital wallet and payments. |
+| WalletService | Manual | Manages digital wallet and payments. (**Safe to disable ✅**) |
 | WarpJITSvc | Manual (Trigger Start) | Improves performance of JavaScript in Windows. |
 | Web Account Manager | Manual | Manages web account authentication. |
 | Web Management | Disabled | Manages web server configuration. |
@@ -224,15 +224,15 @@ Description was made by AI. I'm too lazy to make it.
 | Wi-Fi Direct Services Connection Manager Service | Manual (Trigger Start) | Manages Wi-Fi Direct device connections. |
 | Windows Audio | Automatic | Manages audio devices and streams. |
 | Windows Audio Endpoint Builder | Automatic | Builds audio endpoints for devices. |
-| Windows Backup | Manual | Provides backup functionality. |
-| Windows Biometric Service | Manual (Trigger Start) | Manages biometric devices and authentication. |
-| Windows Camera Frame Server | Manual (Trigger Start) | Manages camera frames for apps. |
+| Windows Backup | Manual | Provides backup functionality. (**Safe to disable ✅**) |
+| Windows Biometric Service | Manual (Trigger Start) | Manages biometric devices and authentication. (**Safe to disable ✅**) |
+| Windows Camera Frame Server | Manual (Trigger Start) | Manages camera frames for apps. (**Safe to disable ✅**) |
 | Windows Connect Now - Config Registrar | Manual | Supports Wi-Fi device configuration. |
 | Windows Connection Manager | Automatic (Trigger Start) | Manages network connections. |
 | Windows Defender Advanced Threat Protection Service | Manual | Provides advanced threat protection. |
 | Windows Defender Firewall | Automatic | Provides firewall protection. |
 | Windows Encryption Provider Host Service | Manual (Trigger Start) | Supports encryption providers. |
-| Windows Error Reporting Service | Manual (Trigger Start) | Reports errors to Microsoft. |
+| Windows Error Reporting Service | Manual (Trigger Start) | Reports errors to Microsoft. (**Safe to disable ✅**) |
 | Windows Event Collector | Manual | Collects event logs from remote computers. |
 | Windows Event Log | Automatic | Logs Windows system events. |
 | Windows Font Cache Service | Automatic | Caches font data for faster access. (**Safe to disable ✅**) |
@@ -243,8 +243,8 @@ Description was made by AI. I'm too lazy to make it.
 | Windows Management Instrumentation | Automatic | Provides management and instrumentation framework. |
 | Windows Management Service | Manual | Supports remote management. |
 | Windows Media Player Network Sharing Service | Manual | Shares media libraries over network. |
-| Windows Mixed Reality OpenXR Service | Manual | Supports Mixed Reality and OpenXR. |
-| Windows Mobile Hotspot Service | Manual (Trigger Start) | Manages mobile hotspot functionality. |
+| Windows Mixed Reality OpenXR Service | Manual | Supports Mixed Reality and OpenXR. (**Safe to disable ✅**) |
+| Windows Mobile Hotspot Service | Manual (Trigger Start) | Manages mobile hotspot functionality. (**Safe to disable ✅**) |
 | Windows Modules Installer | Manual | Installs Windows updates and modules. |
 | Windows Perception Service | Manual (Trigger Start) | Supports Windows Perception platform. |
 | Windows Perception Simulation Service | Manual | Simulates perception sensors for testing. |
@@ -256,7 +256,7 @@ Description was made by AI. I'm too lazy to make it.
 | Windows Search | Automatic (Delayed Start) | Provides content indexing and search. (**Safe to disable ✅**) |
 | Windows Security Service | Manual | Manages Windows security features. |
 | Windows Time | Manual (Trigger Start) | Synchronizes system time with time servers. |
-| Windows Update | Manual (Trigger Start) | Manages Windows update process. |
+| Windows Update | Manual (Trigger Start) | Manages Windows update process. (**Safe to disable ✅**, stops windows update, microsoft app updates, other microsoft downloadable things) |
 | Windows Update Medic Service | Manual | Repairs Windows Update components. |
 | WinHTTP Web Proxy Auto-Discovery Service | Manual | Detects proxy configuration automatically. |
 | Wired AutoConfig | Manual | Manages wired Ethernet authentication. |
