@@ -2,7 +2,7 @@
 <img width="395" height="202" alt="image" src="https://github.com/user-attachments/assets/9fd4800a-c3da-4900-a71c-bb15ad401281" />
 
 ### All services here are DEFAULT in windows (some arent), if you need to reset them, take this list for yourself and fix problems.
-Description was made by AI. I'm too lazy to make it, though i added what's safe to remove.
+Description was made by AI. I'm too lazy to make it, though i added what's safe to disable.
 | Service Display Name | Startup Type | Description |
 |-|-|-|
 | ActiveX Installer (AxInstSV) | Manual | Provides User Account Control (UAC) validation for Windows Installer installations using ActiveX. |
