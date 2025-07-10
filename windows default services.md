@@ -153,12 +153,12 @@ Description was made by AI. I'm too lazy to make it.
 | Power | Automatic | Manages power policy and power events. |
 | Print Spooler | Automatic | Manages printing and spooling print jobs. (Safe to disable) |
 | Printer Extensions and Notifications | Manual | Supports printer extensions and notifications. |
-| PrintWorkflow | Manual (Trigger Start) | Manages workflows for printing processes. |
+| PrintWorkflow | Manual (Trigger Start) | Manages workflows for printing processes. (Safe to disable) |
 | Problem Reports Control Panel Support | Manual | Supports the problem reporting interface. (Safe to disable) |
 | Program Compatibility Assistant Service | Manual | Assists in application compatibility issues. (Safe to disable) |
 | Quality Windows Audio Video Experience | Manual | Enhances audio and video quality. (Safe to disable) |
 | Radio Management Service | Manual | Manages wireless radio devices. (Safe to disable) |
-| Recommended Troubleshooting Service | Manual | Provides recommended fixes for problems. |
+| Recommended Troubleshooting Service | Manual | Provides recommended fixes for problems. (Safe to disable) |
 | Remote Access Auto Connection Manager | Manual | Manages automatic remote access connections. |
 | Remote Access Connection Manager | Manual | Manages VPN and dial-up connections. |
 | Remote Desktop Configuration | Manual | Configures Remote Desktop settings. |
@@ -167,7 +167,7 @@ Description was made by AI. I'm too lazy to make it.
 | Remote Procedure Call (RPC) | Automatic | Core service for RPC communication. |
 | Remote Procedure Call (RPC) Locator | Manual | Manages RPC name resolution. |
 | Remote Registry | Disabled | Allows remote registry management. |
-| Retail Demo Service | Manual | Supports retail demo mode. |
+| Retail Demo Service | Manual | Supports retail demo mode. (Safe to disable) |
 | Routing and Remote Access | Disabled | Provides routing and remote access services. |
 | RPC Endpoint Mapper | Automatic | Maps RPC endpoints to network ports. |
 | Secondary Logon | Manual | Enables running processes under alternate credentials. |
@@ -188,14 +188,14 @@ Description was made by AI. I'm too lazy to make it.
 | Software Protection | Automatic (Delayed Start, Trigger Start) | Protects Windows and software licensing. |
 | Spatial Data Service | Manual | Manages spatial data for apps. |
 | Spot Verifier | Manual (Trigger Start) | Verifies Windows Store apps. |
-| SSDP Discovery | Manual | Discovers UPnP devices on the network. |
+| SSDP Discovery | Manual | Discovers UPnP devices on the network. (Safe to disable) |
 | SshdBroker | Manual | Manages SSH broker services. |
 | State Repository Service | Manual | Manages app state repository. |
 | Still Image Acquisition Events | Manual | Manages camera and scanner events. |
 | Storage Service | Automatic (Delayed Start, Trigger Start) | Manages storage-related services. |
 | Storage Tiers Management | Manual | Manages storage tiers and policies. |
-| Sync Host | Automatic (Delayed Start) | Manages syncing of files and settings. |
-| SysMain | Automatic | Does not improve system performance. (Safe to disable) |
+| Sync Host | Automatic (Delayed Start) | Manages syncing of files and settings. (Safe to disable) |
+| SysMain | Automatic | Caches most of the apps into disk in \windows\prefetch for better launching. (Safe to disable, less ram usage, better performance overall) |
 | System Event Notification Service | Automatic | Notifies system events and logon/logoff. (Safe to disable) |
 | System Events Broker | Automatic (Trigger Start) | Manages system event subscriptions. |
 | System Guard Runtime Monitor Broker | Automatic (Delayed Start, Trigger Start) | Monitors system security runtime state. |
