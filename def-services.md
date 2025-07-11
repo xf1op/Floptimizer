@@ -57,8 +57,8 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Device Management Wireless Application Protocol (WAP) Push message Routing Service | Manual (Trigger Start) | Routes WAP push messages for mobile devices. (**Safe to disable ✅**) |
 | Device Setup Manager | Manual (Trigger Start) | Manages device setup and configuration. |
 | DeviceAssociationBroker | Manual | Handles device associations in the background. |
-| DevicePicker | Manual | Manages device selection UI. |
-| DevicesFlow | Manual | Supports device interaction workflows. (**Safe to disable ✅**) |
+| DevicePicker | Manual | Manages device selection UI. (**Safe to disable ✅**) |
+| DevicesFlow | Manual | Supports device interaction workflows. |
 | DevQuery Background Discovery Broker | Manual (Trigger Start) | Helps discover devices and services on the network. |
 | DHCP Client | Automatic | Obtains IP addresses and network configuration automatically. |
 | Diagnostic Execution Service | Manual (Trigger Start) | Runs diagnostic tests for system health. |
@@ -72,12 +72,12 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Distributed Transaction Coordinator | Manual | Coordinates transactions across multiple resources. |
 | DNS Client | Automatic (Trigger Start) | Caches DNS names and resolves them. |
 | Downloaded Maps Manager | Automatic (Delayed Start) | Manages offline map data. (**Safe to disable ✅**) |
-| Embedded Mode | Manual (Trigger Start) | Supports embedded device scenarios. |
+| Embedded Mode | Manual (Trigger Start) | Supports embedded device scenarios. (**Safe to disable ✅**) |
 | Encrypting File System (EFS) | Manual (Trigger Start) | Provides encryption for files on NTFS drives. |
 | Enterprise App Management Service | Manual | Manages enterprise app deployment and policies. |
 | Extensible Authentication Protocol | Manual | Supports various authentication methods. |
 | Fax | Manual | Provides fax service support. (**Safe to disable ✅**) |
-| File History Service | Automatic (Delayed Start, Trigger Start) | Manages file backups. (**Safe to disable ✅**) |
+| File History Service | Manual (Trigger Start) | Manages file backups. (**Safe to disable ✅**) |
 | Function Discovery Provider Host | Manual | Helps discover network devices. (**Safe to disable ✅**) |
 | Function Discovery Resource Publication | Manual (Trigger Start) | Publishes device info to the network. (**Safe to disable ✅**) |
 | GameDVR and Broadcast User Service | Manual | Provides user mode support for Game DVR and broadcasting. (**Safe to disable ✅**) |
@@ -85,7 +85,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Geolocation Service | Manual (Trigger Start) | Provides location data for apps and services. (**Safe to disable ✅**) |
 | GraphicsPerfSvc | Manual (Trigger Start) | Collects graphics performance data. |
 | Group Policy Client | Automatic (Trigger Start) | Applies group policies for users and computers. |
-| Human Interface Device Service | Manual (Trigger Start) | Manages human interface devices like keyboards and mice. |
+| Human Interface Device Service | Manual (Trigger Start) | Manages human interface devices like keyboards and mice. (**Safe to disable ✅**, improves input lag) |
 | HV Host Service | Manual (Trigger Start) | Supports Hyper-V virtualization services. |
 | Hyper-V Data Exchange Service | Manual (Trigger Start) | Exchanges data between host and virtual machines. |
 | Hyper-V Guest Service Interface | Manual (Trigger Start) | Provides interface for guest services in VMs. |
@@ -108,7 +108,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Local Profile Assistant Service | Manual (Trigger Start) | Assists with managing local user profiles. |
 | Local Session Manager | Automatic | Manages user sessions and logon processes. |
 | McpManagementService | Manual | Manages mobile broadband connections. |
-| MessagingService | Manual (Trigger Start) | Supports messaging services for apps. |
+| MessagingService | Manual (Trigger Start) | Supports messaging services for apps. (**Safe to disable ✅**) |
 | Microsoft (R) Diagnostics Hub Standard Collector Service | Manual | Collects diagnostic information for troubleshooting. (**Safe to disable ✅**) |
 | Microsoft Account Sign-in Assistant | Manual (Trigger Start) | Supports Microsoft account sign-in processes. |
 | Microsoft App-V Client | Disabled | Supports virtualized application delivery. (**Safe to disable ✅**) |
@@ -125,7 +125,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Microsoft Software Shadow Copy Provider | Manual | Supports shadow copies for backups. |
 | Microsoft Storage Spaces SMP | Manual | Manages Storage Spaces functionality. |
 | Microsoft Store Install Service | Manual | Installs and updates Microsoft Store apps. |
-| Microsoft Windows SMS Router Service | Manual (Trigger Start) | Routes SMS messages for Windows devices. |
+| Microsoft Windows SMS Router Service | Manual (Trigger Start) | Routes SMS messages for Windows devices.  (**Safe to disable ✅**) |
 | Natural Authentication | Manual (Trigger Start) | Supports biometric authentication. |
 | Net.Tcp Port Sharing Service | Disabled | Shares TCP ports for WCF services. (**Safe to disable ✅**) |
 | Netlogon | Manual | Supports domain logon and authentication. (**Safe to disable ✅**) |
@@ -137,12 +137,12 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Network Location Awareness | Automatic | Collects and stores network location information. |
 | Network Setup Service | Manual (Trigger Start) | Helps with network setup and device discovery. |
 | Network Store Interface Service | Automatic | Manages network-related configurations and events. |
-| Offline Files | Disabled | Provides offline file support for network files. |
+| Offline Files | Disabled | Provides offline file support for network files. (**Safe to disable ✅**) |
 | OpenSSH Authentication Agent | Disabled | Provides SSH authentication agent functionality. (**Safe to disable ✅**) |
 | OpenSSH SSH Server | Manual | Provides SSH server capabilities. (**Safe to disable ✅**) |
 | Optimize drives | Manual | Manages disk optimization and defragmentation. |
 | Parental Controls | Manual | Manages parental control settings. (**Safe to disable ✅**) |
-| Payments and NFC/SE Manager | Manual (Trigger Start) | Manages payments and NFC services. |
+| Payments and NFC/SE Manager | Manual (Trigger Start) | Manages payments and NFC services. (**Safe to disable ✅**) |
 | Peer Name Resolution Protocol | Manual | Resolves peer names on the network. |
 | Peer Networking Grouping | Manual | Manages peer-to-peer networking groups. |
 | Peer Networking Identity Manager | Manual | Manages peer networking identities. |
@@ -154,7 +154,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Portable Device Enumerator Service | Manual (Trigger Start) | Enumerates portable devices connected to the PC. |
 | Power | Automatic | Manages power policy and power events. |
 | Print Spooler | Automatic | Manages printing and spooling print jobs. (**Safe to disable ✅**) |
-| Printer Extensions and Notifications | Manual | Supports printer extensions and notifications. |
+| Printer Extensions and Notifications | Manual | Supports printer extensions and notifications. (**Safe to disable ✅**) |
 | PrintWorkflow | Manual (Trigger Start) | Manages workflows for printing processes. (**Safe to disable ✅**) |
 | Problem Reports Control Panel Support | Manual | Supports the problem reporting interface. (**Safe to disable ✅**) |
 | Program Compatibility Assistant Service | Manual | Assists in application compatibility issues. (**Safe to disable ✅**) |
@@ -163,16 +163,16 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Recommended Troubleshooting Service | Manual | Provides recommended fixes for problems. (**Safe to disable ✅**) |
 | Remote Access Auto Connection Manager | Manual | Manages automatic remote access connections. |
 | Remote Access Connection Manager | Manual | Manages VPN and dial-up connections. |
-| Remote Desktop Configuration | Manual | Configures Remote Desktop settings. |
-| Remote Desktop Services | Manual | Provides remote desktop session host. |
-| Remote Desktop Services UserMode Port Redirector | Manual | Redirects remote desktop ports. |
+| Remote Desktop Configuration | Manual | Configures Remote Desktop settings. (**Safe to disable ✅**) |
+| Remote Desktop Services | Manual | Provides remote desktop session host. (**Safe to disable ✅**) |
+| Remote Desktop Services UserMode Port Redirector | Manual | Redirects remote desktop ports. (**Safe to disable ✅**) |
 | Remote Procedure Call (RPC) | Automatic | Core service for RPC communication. |
 | Remote Procedure Call (RPC) Locator | Manual | Manages RPC name resolution. |
 | Remote Registry | Disabled | Allows remote registry management. |
 | Retail Demo Service | Manual | Supports retail demo mode. (**Safe to disable ✅**) |
 | Routing and Remote Access | Disabled | Provides routing and remote access services. |
 | RPC Endpoint Mapper | Automatic | Maps RPC endpoints to network ports. |
-| Secondary Logon | Manual | Enables running processes under alternate credentials. |
+| Secondary Logon | Manual | Enables running processes under alternate credentials. (**Safe to disable ✅**, unless using pin password from microsoft) |
 | Secure Socket Tunneling Protocol Service | Manual | Supports SSTP VPN connections. |
 | Security Accounts Manager | Automatic | Manages user account information. |
 | Security Center | Automatic (Delayed Start) | Monitors and reports security health. |
@@ -182,9 +182,9 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Server | Automatic (Trigger Start) | Provides file, print, and named pipe sharing. (**Safe to disable ✅**) |
 | Shared PC Account Manager | Disabled | Manages accounts for shared PC scenarios. |
 | Shell Hardware Detection | Automatic | Detects hardware events like media insertion. (**Safe to disable ✅**) |
-| Smart Card | Manual (Trigger Start) | Manages smart card services. |
-| Smart Card Device Enumeration Service | Manual (Trigger Start) | Enumerates smart card devices. |
-| Smart Card Removal Policy | Manual | Enforces smart card removal policies. |
+| Smart Card | Manual (Trigger Start) | Manages smart card services. (**Safe to disable ✅**) |
+| Smart Card Device Enumeration Service | Manual (Trigger Start) | Enumerates smart card devices. (**Safe to disable ✅**) |
+| Smart Card Removal Policy | Manual | Enforces smart card removal policies. (**Safe to disable ✅**) |
 | SNMP Service | Automatic | Supports SNMP network management. |
 | SNMP Trap | Manual | Receives and processes SNMP traps. |
 | Software Protection | Automatic (Delayed Start, Trigger Start) | Protects Windows and software licensing. |
@@ -212,7 +212,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | UPnP Device Host | Manual | Hosts UPnP devices on the network. |
 | User Data Access | Manual | Manages user data access for apps. (**Safe to disable ✅**) |
 | User Data Storage | Manual | Stores user data for applications. (**Safe to disable ✅**) |
-| User Experience Virtualization Service | Disabled | Manages user settings virtualization. |
+| User Experience Virtualization Service | Disabled | Manages user settings virtualization. (**Safe to disable ✅**) |
 | User Manager | Automatic (Trigger Start) | Manages user sessions. |
 | User Profile Service | Automatic | Loads and unloads user profiles. |
 | Virtual Disk | Manual | Manages virtual disk operations. |
@@ -227,7 +227,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Windows Audio | Automatic | Manages audio devices and streams. |
 | Windows Audio Endpoint Builder | Automatic | Builds audio endpoints for devices. |
 | Windows Backup | Manual | Provides backup functionality. (**Safe to disable ✅**) |
-| Windows Biometric Service | Manual (Trigger Start) | Manages biometric devices and authentication. (**Safe to disable ✅**) |
+| Windows Biometric Service | Manual (Trigger Start) | Manages biometric devices and authentication. (**Safe to disable ✅**, unless using fingerprint passwords) |
 | Windows Camera Frame Server | Manual (Trigger Start) | Manages camera frames for apps. (**Safe to disable ✅**) |
 | Windows Connect Now - Config Registrar | Manual | Supports Wi-Fi device configuration. |
 | Windows Connection Manager | Automatic (Trigger Start) | Manages network connections. |
@@ -239,7 +239,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Windows Event Log | Automatic | Logs Windows system events. |
 | Windows Font Cache Service | Automatic | Caches font data for faster access. (**Safe to disable ✅**) |
 | Windows Image Acquisition (WIA) | Manual (Trigger Start) | Manages imaging devices like scanners. (**Safe to disable ✅**) |
-| Windows Insider Service | Manual (Trigger Start) | Manages Windows Insider program. |
+| Windows Insider Service | Manual (Trigger Start) | Manages Windows Insider program. (**Safe to disable ✅**) |
 | Windows Installer | Manual | Installs Windows software packages. |
 | Windows License Manager Service | Manual (Trigger Start) | Manages Windows licenses. |
 | Windows Management Instrumentation | Automatic | Provides management and instrumentation framework. |
@@ -263,7 +263,7 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | WinHTTP Web Proxy Auto-Discovery Service | Manual | Detects proxy configuration automatically. |
 | Wired AutoConfig | Manual | Manages wired Ethernet authentication. |
 | WLAN AutoConfig | Manual | Manages wireless network connections. |
-| WMI Performance Adapter | Manual | Provides performance library information. |
+| WMI Performance Adapter | Manual | Provides performance library information. (**Safe to disable ✅**) |
 | Work Folders | Manual | Syncs user files to corporate servers. (**Safe to disable ✅**) |
 | Workstation | Automatic | Provides network connections and communications. (**Safe to disable ✅**) |
 | WWAN AutoConfig | Manual | Manages mobile broadband connections. |
