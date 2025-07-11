@@ -245,7 +245,9 @@ if not '%q%'=='0' cls && goto ot
 goto menu
 
 :o1
-:: Disables not really needed system services
+:: Disables not really needed system services AND background windows apps.
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" /v LetAppsRunInBackground /t REG_DWORD /d 2 /f >nul
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v GlobalUserDisabled /t REG_DWORD /d 1 /f >nul
 sc config "AppVClient" start=disabled 2>nul >nul
 echo Disabled Microsoft App-V Client
 sc stop "AppVClient" 2>nul >nul
