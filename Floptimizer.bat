@@ -118,7 +118,7 @@ echo.
 echo - [1] Disable HID service
 echo - [2] Enhance Power Plan Settings
 echo - [3] Disable High Precision Event Timer (AMD recommended)
-echo.
+echo - [4] Disable Every USB Power Saving State
 echo.
 echo.
 echo.
@@ -128,6 +128,7 @@ set /p q=- Number:
 if '%q%'=='1' cls && goto l1
 if '%q%'=='2' cls && goto l2
 if '%q%'=='3' cls && goto l3
+if '%q%'=='4' cls && goto l4
 if not '%q%'=='0' cls && goto lf
 goto menu
 
@@ -152,6 +153,11 @@ echo Enhanced power plan!  Returning.. && timeout 2 >nul && goto lf
 powershell -command "Get-PnpDevice -FriendlyName 'High Precision Event Timer' | Disable-PnpDevice -Confirm:$false"
 bcdedit /set useplatformclock no >nul
 echo Disabled!  Returning.. && timeout 2 >nul && goto lf
+
+:l4
+:: Disables all power saving states from USB and other devices in device manager
+powershell -NoProfile -command "$devicesUSB = Get-PnpDevice | where {$_.InstanceId -like \"*USB\ROOT*\"} | ForEach-Object -Process { Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root\wmi }; foreach ( $device in $devicesUSB ) {Set-CimInstance -Namespace root\wmi -Query \"SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%%$($device.PNPDeviceID)%%'\" -Property @{Enable=$False} -PassThru}"
+echo Disabled power saving states!  Returning.. && timeout 2 >nul && goto lf
 
 :: Gaming tweaks
 :gt
@@ -214,6 +220,7 @@ goto menu
 
 ::Other Tweaks
 :ot
+mode 63,15
 cls
 set q=
 echo.
@@ -222,8 +229,8 @@ echo - Other probably important tweaks
 echo ---       Pick your number from the list to continue!       ---
 echo.
 echo - [1] Disable Unnecessary Services
-echo - [2] Remove Common Unused Microsoft Apps
-echo.
+echo - [2] Remove Common Microsoft Bloatware Apps
+echo - [3] Pause And Disable Automatic Windows Updates
 echo.
 echo.
 echo.
@@ -233,65 +240,203 @@ echo.
 set /p q=- Number: 
 if '%q%'=='1' cls && goto o1
 if '%q%'=='2' cls && goto o2
+if '%q%'=='3' cls && goto o3
 if not '%q%'=='0' cls && goto ot
 goto menu
 
 :o1
-sc config "AppVClient" start=disabled
-sc config "CDPSvc" start=disabled
-sc config "CDPUserSvc" start=disabled
-sc config "CDPUserSvc" start=disabled
-sc config "DispBrokerDesktopSvc" start=disabled
-sc config "DPS" start=disabled
-sc config "edgeupdate" start=disabled
-sc config "edgeupdatem" start=disabled
-sc config "FontCache" start=disabled
-sc config "hidserv" start=disabled
-sc config "iphlpsvc" start=disabled
-sc config "LanmanServer" start=disabled
-sc config "LanmanWorkstation" start=disabled
-sc config "lfsvc" start=disabled
-sc config "lmhosts" start=disabled
-sc config "MessagingService" start=disabled
-sc config "MicrosoftEdgeElevationService" start=disabled
-sc config "Netlogon" start=disabled
-sc config "NetTcpPortSharing" start=disabled
-sc config "OneSyncSvc" start=disabled
-sc config "PcaSvc" start=disabled
-sc config "PimIndexMaintenanceSvc" start=disabled
-sc config "QWAVE" start=disabled
-sc config "RemoteAccess" start=disabled
-sc config "RemoteRegistry" start=disabled
-sc config "RmSvc" start=disabled
-sc config "SCardSvr" start=disabled
-sc config "ScDeviceEnum" start=disabled
-sc config "SCPolicySvc" start=disabled
-sc config "SENS" start=disabled
-sc config "ShellHWDetection" start=disabled
-sc config "SSDPSRV" start=disabled
-sc config "ssh-agent" start=disabled
-sc config "SysMain" start=disabled
-sc config "Themes" start=disabled
-sc config "TrkWks" start=disabled
-sc config "tzautoupdate" start=disabled
-sc config "UevAgentService" start=disabled
-sc config "UnistoreSvc" start=disabled
-sc config "UserDataSvc" start=disabled
-sc config "WpnService" start=disabled
-sc config "WpnUserService" start=disabled
-sc config "WSAIFabricSvc" start=disabled
-sc config "WSearch" start=disabled
-sc config "WerSvc" start=disabled
-cls
-echo Disabled services!  Returning.. && timeout 2 >nul && goto ot
-:o2
-cls
-echo Still working on this!
-echo Removing Cortana, phone link, other things later... (just listed what will be removed it didnt do anything)
-timeout 2 >nul
-echo Removed apps (fake)!  Returning.. && timeout 2 >nul && goto ot
+:: Disables not really needed system services
+sc config "AppVClient" start=disabled 2>nul >nul
+echo Disabled Microsoft App-V Client
+sc stop "AppVClient" 2>nul >nul
+sc config "CDPSvc" start=disabled 2>nul >nul
+echo Disabled Connected Devices Platform Service
+sc stop "CDPSvc" 2>nul >nul
+sc config "CDPUserSvc" start=disabled 2>nul >nul
+echo Disabled Connected Devices Platform User Service
+sc stop "CDPUserSvc" 2>nul >nul
+sc config "DPS" start=disabled 2>nul >nul
+echo Disabled Diagnostic Policy Service
+sc stop "DPS" 2>nul >nul
+sc config "DispBrokerDesktopSvc" start=disabled 2>nul >nul
+echo Disabled Display Enhancement Service
+sc stop "DispBrokerDesktopSvc" 2>nul >nul
+sc config "FontCache" start=disabled 2>nul >nul
+echo Disabled Windows Font Cache Service
+sc stop "FontCache" 2>nul >nul
+sc config "iphlpsvc" start=disabled 2>nul >nul
+echo Disabled IP Helper
+sc stop "iphlpsvc" 2>nul >nul
+sc config "LanmanServer" start=disabled 2>nul >nul
+echo Disabled Server
+sc stop "LanmanServer" 2>nul >nul
+sc config "LanmanWorkstation" start=disabled 2>nul >nul
+echo Disabled Workstation
+sc stop "LanmanWorkstation" 2>nul >nul
+sc config "lfsvc" start=disabled 2>nul >nul
+echo Disabled Geolocation Service
+sc stop "lfsvc" 2>nul >nul
+sc config "lmhosts" start=disabled 2>nul >nul
+echo Disabled TCP/IP NetBIOS Helper
+sc stop "lmhosts" 2>nul >nul
+sc config "MessagingService" start=disabled 2>nul >nul
+echo Disabled Messaging Service
+sc stop "MessagingService" 2>nul >nul
+sc config "MicrosoftEdgeElevationService" start=disabled 2>nul >nul
+echo Disabled Microsoft Edge Elevation Service
+sc stop "MicrosoftEdgeElevationService" 2>nul >nul
+sc config "Netlogon" start=disabled 2>nul >nul
+echo Disabled Netlogon
+sc stop "Netlogon" 2>nul >nul
+timeout 1 >nul
+sc config "NetTcpPortSharing" start=disabled 2>nul >nul
+echo Disabled Net.Tcp Port Sharing Service
+sc stop "NetTcpPortSharing" 2>nul >nul
+sc config "OneSyncSvc" start=disabled 2>nul >nul
+echo Disabled Sync Host
+sc stop "OneSyncSvc" 2>nul >nul
+sc config "PcaSvc" start=disabled 2>nul >nul
+echo Disabled Program Compatibility Assistant Service
+sc stop "PcaSvc" 2>nul >nul
+sc config "PimIndexMaintenanceSvc" start=disabled 2>nul >nul
+echo Disabled Contact Data
+sc stop "PimIndexMaintenanceSvc" 2>nul >nul
+sc config "QWAVE" start=disabled 2>nul >nul
+echo Disabled Quality Windows Audio Video Experience
+sc stop "QWAVE" 2>nul >nul
+sc config "RemoteAccess" start=disabled 2>nul >nul
+echo Disabled Routing and Remote Access
+sc stop "RemoteAccess" 2>nul >nul
+sc config "RemoteRegistry" start=disabled 2>nul >nul
+echo Disabled Remote Registry
+sc stop "RemoteRegistry" 2>nul >nul
+sc config "RmSvc" start=disabled 2>nul >nul
+echo Disabled Windows Modern Standby Network Connectivity
+sc stop "RmSvc" 2>nul >nul
+sc config "SCardSvr" start=disabled 2>nul >nul
+echo Disabled Smart Card
+sc stop "SCardSvr" 2>nul >nul
+sc config "SCPolicySvc" start=disabled 2>nul >nul
+echo Disabled Smart Card Removal Policy
+sc stop "SCPolicySvc" 2>nul >nul
+sc config "ScDeviceEnum" start=disabled 2>nul >nul
+echo Disabled Smart Card Device Enumeration Service
+sc stop "ScDeviceEnum" 2>nul >nul
+sc config "SENS" start=disabled 2>nul >nul
+echo Disabled System Event Notification Service
+sc stop "SENS" 2>nul >nul
+sc config "ShellHWDetection" start=disabled 2>nul >nul
+echo Disabled Shell Hardware Detection
+sc stop "ShellHWDetection" 2>nul >nul
+sc config "SSDPSRV" start=disabled 2>nul >nul
+echo Disabled SSDP Discovery
+sc stop "SSDPSRV" 2>nul >nul
+timeout 1 >nul
+sc config "SysMain" start=disabled 2>nul >nul
+echo Disabled SysMain
+sc stop "SysMain" 2>nul >nul
+sc config "Themes" start=disabled 2>nul >nul
+echo Disabled Themes
+sc stop "Themes" 2>nul >nul
+sc config "TrkWks" start=disabled 2>nul >nul
+echo Disabled Distributed Link Tracking Client
+sc stop "TrkWks" 2>nul >nul
+sc config "tzautoupdate" start=disabled 2>nul >nul
+echo Disabled Auto Time Zone Updater
+sc stop "tzautoupdate" 2>nul >nul
+sc config "UevAgentService" start=disabled 2>nul >nul
+echo Disabled User Experience Virtualization Service
+sc stop "UevAgentService" 2>nul >nul
+sc config "UnistoreSvc" start=disabled 2>nul >nul
+echo Disabled User Data Storage
+sc stop "UnistoreSvc" 2>nul >nul
+sc config "UserDataSvc" start=disabled 2>nul >nul
+echo Disabled User Data Access
+sc stop "UserDataSvc" 2>nul >nul
+sc config "WpnService" start=disabled 2>nul >nul
+echo Disabled Windows Push Notifications System Service
+sc stop "WpnService" 2>nul >nul
+sc config "WpnUserService" start=disabled 2>nul >nul
+echo Disabled Windows Push Notifications User Service
+sc stop "WpnUserService" 2>nul >nul
+sc config "WerSvc" start=disabled 2>nul >nul
+echo Disabled Windows Error Reporting Service
+sc stop "WerSvc" 2>nul >nul
+sc config "WSearch" start=disabled 2>nul >nul
+echo Disabled Windows Search
+sc stop "WSearch" 2>nul >nul
+sc config "WSAIFabricSvc" start=disabled 2>nul >nul
+echo Disabled Windows Advanced Infrastructure Fabric Service
+sc stop "WSAIFabricSvc" 2>nul >nul
+sc config "StiSvc" start=disabled 2>nul >nul
+echo Disabled Windows Image Acquisition Service
+sc stop "StiSvc" 2>nul >nul
+sc config "TapiSrv" start=disabled 2>nul >nul
+echo Disabled Telephony Service
+sc stop "TapiSrv" 2>nul >nul
+timeout 1 >nul
+sc config "WiaRpc" start=disabled 2>nul >nul
+echo Disabled Still Image Acquisition Events Service
+sc stop "WiaRpc" 2>nul >nul
+sc config "Spooler" start=demand 2>nul >nul
+echo Disabled Print Spooler Service
+sc stop "Spooler" 2>nul >nul
+sc config "PrintWorkflowUserSvc" start=disabled 2>nul >nul
+echo Disabled Print Workflow Service
+sc stop "PrintWorkflowUserSvc" 2>nul >nul
+sc config "BcastDVRUserService" start=disabled 2>nul >nul
+echo Disabled GameDVR and Broadcast User Service
+sc stop "BcastDVRUserService" 2>nul >nul
+sc config "DevicePickerUserSvc" start=disabled 2>nul >nul
+echo Disabled Device Picker Service
+sc stop "DevicePickerUserSvc" 2>nul >nul
+sc config "workfolderssvc" start=disabled 2>nul >nul
+echo Disabled Work Folders Service
+sc stop "workfolderssvc" 2>nul >nul
+sc config "icssvc" start=disabled 2>nul >nul
+echo Disabled Windows Mobile Hotspot Service
+sc stop "icssvc" 2>nul >nul
+sc config "wisvc" start=disabled 2>nul >nul
+echo Disabled Windows Insider Service
+sc stop "wisvc" 2>nul >nul
+echo Disabled unnecessary services!  Returning.. && timeout 2 >nul && goto ot
 
-:: Credits to FrameSync Labs for giving good precised benchmarks and optimization videos i took inspiration from https://www.youtube.com/@FrameSyncLabs
+:o2
+:: Removes Cortana, News, Phone Link, 3D Viewer, Paint 3D, Voice Recorder, Weather, Mixed Reality Portal, Get Help, Get Started, OneNote, Feedback Hub, Alarms, Mail and Calendar and Maps
+mode 80,20
+cls
+echo Do you want to continue?
+echo.
+echo This will remove apps like - Cortana, News, Phone Link, 3D Viewer, Paint 3D, 
+echo Voice Recorder, Weather, Mixed Reality Portal, Get Help, Get Started, OneNote,
+echo Feedback Hub, Alarms, Mail and Calendar and Maps.
+echo.
+echo.
+set /p q=Continue? [y/n] : 
+if '%q%'=='n' cls &&  goto ot
+if not '%q%'=='y' cls && goto o2
+cls
+echo Removing microsoft apps...
+echo.
+powershell -NoProfile -ExecutionPolicy Bypass -Command "@('Microsoft.549981C3F5F10','Microsoft.BingNews','Microsoft.YourPhone','Microsoft.Microsoft3DViewer','Microsoft.MSPaint','Microsoft.Getstarted','Microsoft.WindowsSoundRecorder','Microsoft.BingWeather','Microsoft.Windows.HolographicFirstRun','Microsoft.GetHelp','Microsoft.Office.OneNote','Microsoft.WindowsFeedbackHub','Microsoft.WindowsAlarms','microsoft.windowscommunicationsapps','Microsoft.WindowsMaps') | ForEach-Object { $pkg = Get-AppxPackage $_; if ($pkg) { Write-Host ('Removing: ' + $pkg.Name + ' (' + $pkg.PackageFullName + ')'); Remove-AppxPackage $pkg } else { Write-Host ('Not installed: ' + $_) } }"
+echo.
+echo Removed common bloatware apps!  Returning.. && timeout 2 >nul && goto ot
+
+:o3
+:: Pauses automatic updates and windows apps auto updates, next time unpausing windows update will cause updates to notify but not download and install without interaction.
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v AUOptions /t REG_DWORD /d 2 /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" /v NoAutoUpdate /t REG_DWORD /d 1 /f
+reg add "HKLM\Software\Microsoft\WindowsUpdate\UX\Settings" /v PauseFeatureUpdatesStartTime /t REG_SZ /d "2025-01-01T20:00:00Z" /f
+reg add "HKLM\Software\Microsoft\WindowsUpdate\UX\Settings" /v PauseQualityUpdatesStartTime /t REG_SZ /d "2025-01-01T20:00:00Z" /f
+reg add "HKLM\Software\Microsoft\WindowsUpdate\UX\Settings" /v PauseFeatureUpdatesEndTime /t REG_SZ /d "2099-01-01T20:00:00Z" /f
+reg add "HKLM\Software\Microsoft\WindowsUpdate\UX\Settings" /v PauseQualityUpdatesEndTime /t REG_SZ /d "2099-01-01T20:00:00Z" /f
+reg add "HKLM\Software\Microsoft\WindowsUpdate\UX\Settings" /v PauseUpdatesExpiryTime /t REG_SZ /d "2099-01-01T20:00:00Z" /f
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate" /v AutoDownload /t REG_DWORD /d 2 /f
+sc config UsoSvc start=demand
+sc stop UsoSvc
+sc stop wuauserv
+cls
+echo Paused and disabled automatic windows updates!  Returning.. && timeout 2 >nul && goto ot
 
 :in
 mode 90,15
@@ -305,6 +450,10 @@ echo.
 echo - Explanations and other information can be found in another file on my github page.
 echo   github.com/xf1op/Floptimizer/blob/main/explanations.md  (select ^& right click to copy)
 echo.
+echo.
+echo.
 pause
 mode 63,15
 goto menu
+
+:: Credits to FrameSync Labs for giving good precised benchmarks and optimization videos i took inspiration from https://www.youtube.com/@FrameSyncLabs.
