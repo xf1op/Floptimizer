@@ -214,10 +214,85 @@ echo Reduced!  Returning.. && timeout 2 >nul && goto gt
 
 ::Windows Settings
 :ws
-echo Still working on it!
-timeout 2 >nul
+cls
+set q=
+echo.
+echo ---                    Windows  Settings                    ---
+echo - Change windows system settings
+echo ---       Pick your number from the list to continue!       ---
+echo.
+echo - [1] Change Windows Dark/Light Mode
+echo - [2] Change Windows Transparency/Animations
+echo - [3] Open Windows Performance Options
+echo.
+echo.
+echo.
+echo.
+echo - [0] Return
+echo.
+set /p q=- Number: 
+if '%q%'=='1' cls && goto w1
+if '%q%'=='2' cls && goto w2
+if '%q%'=='3' cls && goto w3
+if not '%q%'=='0' cls && goto ws
 goto menu
 
+:w1
+set q=
+echo.
+echo In windows 10 and 11 theres only dark or light theme.
+echo.
+echo Would you like to change the theme into dark or light mode?
+echo.
+echo - [1] Dark Theme
+echo - [2] Light Theme
+echo.
+echo - [0] Return
+echo.
+set /p q=- Number: 
+if '%q%'=='1' cls && goto dt
+if '%q%'=='2' cls && goto lt
+if not '%q%'=='0' cls && goto w1
+goto ws
+
+:dt
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v AppsUseLightTheme /t REG_DWORD /d 0 /f >nul
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v SystemUsesLightTheme /t REG_DWORD /d 0 /f >nul
+echo.
+echo Changed the theme!
+timeout 1 >nul
+echo Restart for better result!!
+timeout 2 >nul
+goto ws
+
+:lt
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v AppsUseLightTheme /t REG_DWORD /d 1 /f >nul
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v SystemUsesLightTheme /t REG_DWORD /d 1 /f >nul
+echo.
+echo Changed the theme!
+timeout 1 >nul
+echo Restart for better result!!
+timeout 2 >nul
+goto ws
+
+:w2
+echo.
+echo Opening windows settings..
+timeout 1 >nul
+start ms-settings:easeofaccess-visualeffects
+goto ws
+
+:w3
+echo.
+echo Opening windows performance options..
+timeout 1 >nul
+echo.
+echo Change it to best performance and apply!
+echo Next go to advanced and set virtual memory on C drive and
+echo set it to initial 16 and maximum 8192, set, ok ^& restart!
+timeout 2 >nul
+%windir%\system32\SystemPropertiesPerformance.exe
+goto ws
 ::Other Tweaks
 :ot
 mode 63,15
