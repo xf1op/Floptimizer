@@ -87,8 +87,8 @@ if not '%q%'=='0' cls && goto no
 goto menu
 
 :n1
-:: Disables everything except ipv4 (internet connection) and Quality-of-Service packet scheduler (control panel -> network -> view network status -> change adapter settings -> double-click any and click properties)
-powershell -Command "Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } | ForEach-Object { Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_msclient'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_implat'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_tcpip6'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_server'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_rspndr'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_lldp'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_lltdio'; Enable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_pacer'; Enable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_tcpip'; }"
+:: Disables everything except ipv4 (internet connection) and Quality-of-Service packet scheduler and sets ipv4 dns to cloudflare (control panel -> network -> view network status -> change adapter settings -> double-click any and click properties)
+powershell -Command "Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } | ForEach-Object { Set-DnsClientServerAddress -InterfaceAlias $_.Name -ServerAddresses 1.1.1.1, 1.0.0.1; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_msclient'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_implat'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_tcpip6'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_server'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_rspndr'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_lldp'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_lltdio'; Enable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_pacer'; Enable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_tcpip'; }"
 echo Disabled unnecessary network adapter settings!  Returning.. && timeout 2 >nul && goto no
 
 :n2
