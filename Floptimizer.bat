@@ -97,8 +97,9 @@ Netsh int tcp set global autotuning=disabled >nul
 echo Disabled!  Returning.. && timeout 2 >nul && goto no
 
 :n3
-:: UDP datagram optimization
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v FastSendDatagramThreshold /t REG_DWORD /d 0x00064000 /f >nul
+:: UDP optimization (disables udp recieve offload and maximizes MTU size of normal internet (1500), jumbo packets would be 64000 in that place)
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v FastSendDatagramThreshold /t REG_DWORD /d 0x00001500 /f >nul
+netsh int udp set global uro=disabled >nul
 echo Enhanced UDP connection!  Returning.. && timeout 2 >nul && goto no
 
 :n4
@@ -118,7 +119,7 @@ echo.
 echo - [1] Disable HID service
 echo - [2] Enhance Power Plan Settings
 echo - [3] Disable High Precision Event Timer (AMD recommended)
-echo - [4] Disable Every USB Power Saving State
+echo - [4] Disable USB Power Saving States
 echo.
 echo.
 echo.
@@ -173,7 +174,7 @@ echo - [2] Disable Hardware Accelerated GPU Scheduling
 echo - [3] Disable Game DVR
 echo - [4] Maximize Performance Of Priority Separation
 echo - [5] Reduce Low Priority Task CPU Usage
-echo.
+echo - [6] Disable Power Throttling
 echo.
 echo - [0] Return
 echo.
@@ -183,6 +184,7 @@ if '%q%'=='2' cls && goto g2
 if '%q%'=='3' cls && goto g3
 if '%q%'=='4' cls && goto g4
 if '%q%'=='5' cls && goto g5
+if '%q%'=='6' cls && goto g6
 if not '%q%'=='0' cls && goto gt
 goto menu
 
@@ -211,6 +213,11 @@ echo Maximized foreground priority!  Returning.. && timeout 2 >nul && goto gt
 :: Change percentage of CPU resources that should be guaranteed to low-priority tasks (14 default, 10 minimum, set 1 to make sure its low)
 reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v SystemResponsiveness /t REG_DWORD /d 1 /f >nul
 echo Reduced!  Returning.. && timeout 2 >nul && goto gt
+
+:g6
+:: Disable system power throttling
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f
+echo Disabled throttling!  Returning.. && timeout 2 >nul && goto gt
 
 ::Windows Settings
 :ws
