@@ -216,7 +216,7 @@ echo Reduced!  Returning.. && timeout 2 >nul && goto gt
 
 :g6
 :: Disable system power throttling
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f >nul
 echo Disabled throttling!  Returning.. && timeout 2 >nul && goto gt
 
 ::Windows Settings
