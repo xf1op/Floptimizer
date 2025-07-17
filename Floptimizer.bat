@@ -69,7 +69,7 @@ echo ---                  Network  Optimization                  ---
 echo - Improved internet connection
 echo ---       Pick your number from the list to continue!       ---
 echo.
-echo - [1] Enabled Network Adapters Tweaks
+echo - [1] Network Adapters Optimization
 echo - [2] Turn Off Network Auto-Tuning
 echo - [3] Enhance UDP Connection
 echo - [4] Disable Network Throttling Index
@@ -87,8 +87,12 @@ if not '%q%'=='0' cls && goto no
 goto menu
 
 :n1
-:: Disables everything except ipv4 (internet connection) and Quality-of-Service packet scheduler and sets ipv4 dns to cloudflare (control panel -> network -> view network status -> change adapter settings -> double-click any and click properties)
+:: Disables everything except ipv4 (internet connection) and Quality-of-Service packet scheduler and sets ipv4 dns to cloudflare within clearing dns cache and releasing/assigning different ip (control panel -> network -> view network status -> change adapter settings -> double-click any and click properties)
 powershell -Command "Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } | ForEach-Object { Set-DnsClientServerAddress -InterfaceAlias $_.Name -ServerAddresses 1.1.1.1, 1.0.0.1; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_msclient'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_implat'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_tcpip6'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_server'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_rspndr'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_lldp'; Disable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_lltdio'; Enable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_pacer'; Enable-NetAdapterBinding -Name $_.Name -ComponentID 'ms_tcpip'; }"
+ipconfig /flushdns >nul
+ipconfig /registerdns >nul
+ipconfig /release >nul
+ipconfig /renew >nul
 echo Disabled unnecessary network adapter settings!  Returning.. && timeout 2 >nul && goto no
 
 :n2
