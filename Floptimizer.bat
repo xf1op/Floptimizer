@@ -317,7 +317,7 @@ echo.
 echo - [1] Disable Unnecessary Services
 echo - [2] Remove Common Microsoft Bloatware Apps
 echo - [3] Pause And Disable Automatic Windows Updates
-echo.
+echo - [4] Disable Not Important System Drivers
 echo.
 echo.
 echo.
@@ -327,6 +327,7 @@ set /p q=- Number:
 if '%q%'=='1' cls && goto o1
 if '%q%'=='2' cls && goto o2
 if '%q%'=='3' cls && goto o3
+if '%q%'=='4' cls && goto o4
 if not '%q%'=='0' cls && goto ot
 goto menu
 
@@ -487,7 +488,8 @@ sc stop "icssvc" 2>nul >nul
 sc config "wisvc" start=disabled 2>nul >nul
 echo Disabled Windows Insider Service
 sc stop "wisvc" 2>nul >nul
-echo Disabled unnecessary services!  Returning.. && timeout 2 >nul && goto ot
+echo.
+echo Disabled unnecessary services RESTART recommended!  Returning.. && timeout 2 >nul && goto ot
 
 :o2
 :: Removes Cortana, News, Phone Link, 3D Viewer, Paint 3D, Voice Recorder, Weather, Mixed Reality Portal, Get Help, Get Started, OneNote, Feedback Hub, Alarms, Mail and Calendar and Maps
@@ -525,6 +527,17 @@ sc stop UsoSvc
 sc stop wuauserv
 cls
 echo Paused and disabled automatic windows updates!  Returning.. && timeout 2 >nul && goto ot
+
+:o4
+:: Disable not important system drivers (unless you use one of them)
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\1394ohci" /v Start /t REG_DWORD /d 4 /f 2>nul >nul
+echo Disabled 1394ohci System Service
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AppvVemgr" /v Start /t REG_DWORD /d 4 /f 2>nul >nul
+echo Disabled AppvVemgr System Service
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\CSC" /v Start /t REG_DWORD /d 4 /f 2>nul >nul
+echo Disabled CSC System Service
+echo.
+echo Disabled system drivers, restart recommended!  Returning.. && timeout 2 >nul && goto ot
 
 :in
 mode 90,15
