@@ -271,3 +271,6 @@ Description was made by AI. I'm too lazy to make it, though i added what's safe 
 | Xbox Live Auth Manager | Manual | Manages Xbox Live authentication. |
 | Xbox Live Game Save | Manual (Trigger Start) | Saves game data to Xbox Live cloud. |
 | Xbox Live Networking Service | Manual | Manages Xbox Live network connectivity. |
+| 1394ohci | Manual (3) | 1394ohci.sys is a system bus driver introduced on the Windows 7 operating system that supports greater speeds and numerous hardware media. This is a critical Windows component and should not be disabled or removed. (**Safe to disable ✅**, i literally tested it) |
+| AppvVemgr.sys | Manual (3) | AppvVemgr.sys is a Windows system driver associated with Microsoft’s Application Virtualization (App-V) platform. (**Safe to disable ✅**, i literally tested it) |
+| CSC.sys | Kernel (1) | CSC.sys is a Windows system driver that powers the Client Side Caching (CSC) feature, also known as Offline Files. (**Safe to disable ✅**, i literally tested it) |
