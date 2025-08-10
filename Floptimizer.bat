@@ -93,16 +93,16 @@ ipconfig /flushdns >nul
 ipconfig /registerdns >nul
 ipconfig /release >nul
 ipconfig /renew >nul
-echo Disabled unnecessary network adapter settings!  Returning.. && timeout 2 >nul && goto no
+echo Optimized network adapter settings!  Returning.. && timeout 2 >nul && goto no
 
 :n2
-:: Self explanatory (network auto-tuning disabled)
+:: Self explanatory (network auto-tuning disabled, bufferbloat fix)
 Netsh int tcp set global autotuning=disabled >nul
 echo Disabled!  Returning.. && timeout 2 >nul && goto no
 
 :n3
-:: UDP optimization (disables udp recieve offload and maximizes MTU size of normal internet (1500), jumbo packets would be 64000 in that place)
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v FastSendDatagramThreshold /t REG_DWORD /d 0x00001500 /f >nul
+:: UDP optimization (disables udp recieve offload and maximizes MTU size of normal internet (1472), jumbo packets would be 0x00064000 in that place)
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\AFD\Parameters" /v FastSendDatagramThreshold /t REG_DWORD /d 1472 /f >nul
 netsh int udp set global uro=disabled >nul
 echo Enhanced UDP connection!  Returning.. && timeout 2 >nul && goto no
 
@@ -138,7 +138,7 @@ if not '%q%'=='0' cls && goto lf
 goto menu
 
 :l1
-:: Disable Human interface device service (not recommended for keyboards with many multimedia buttons but improved input lag/less latency)
+:: Disable Human interface device service (not recommended for keyboards with many multimedia buttons but improves input lag/gives less latency)
 sc config "hidserv" start=disabled
 sc stop "hidserv"
 cls
@@ -154,13 +154,13 @@ powercfg -setacvalueindex %app% 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d2
 echo Enhanced power plan!  Returning.. && timeout 2 >nul && goto lf
 
 :l3
-:: Disable HPET (proven to decrease latency and improve fps at some point, mostly 1% low are better but also average fps)
+:: Disable HPET (proven to decrease latency and improve fps at AMD, in intel it doesnt do much, mostly 1% low are better but also average fps)
 powershell -command "Get-PnpDevice -FriendlyName 'High Precision Event Timer' | Disable-PnpDevice -Confirm:$false"
 bcdedit /set useplatformclock no >nul
 echo Disabled!  Returning.. && timeout 2 >nul && goto lf
 
 :l4
-:: Disables all power saving states from USB and other devices in device manager
+:: Disables all power saving states from USB and other devices in device manager (less input lag?)
 powershell -NoProfile -command "$devicesUSB = Get-PnpDevice | where {$_.InstanceId -like \"*USB\ROOT*\"} | ForEach-Object -Process { Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root\wmi }; foreach ( $device in $devicesUSB ) {Set-CimInstance -Namespace root\wmi -Query \"SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE '%%$($device.PNPDeviceID)%%'\" -Property @{Enable=$False} -PassThru}"
 echo Disabled power saving states!  Returning.. && timeout 2 >nul && goto lf
 
@@ -233,9 +233,9 @@ echo - Change windows system settings
 echo ---       Pick your number from the list to continue!       ---
 echo.
 echo - [1] Change Windows Dark/Light Mode
-echo - [2] Change Windows Transparency/Animations
-echo - [3] Open Windows Performance Options
-echo.
+echo - [2] Change Windows Transparency/Animations (Windows 11)
+echo - [3] Change Windows Transparency/Animations (Windows 10)
+echo - [4] Open Windows Performance Options
 echo.
 echo.
 echo.
@@ -245,6 +245,7 @@ set /p q=- Number:
 if '%q%'=='1' cls && goto w1
 if '%q%'=='2' cls && goto w2
 if '%q%'=='3' cls && goto w3
+if '%q%'=='4' cls && goto w4
 if not '%q%'=='0' cls && goto ws
 goto menu
 
@@ -294,6 +295,13 @@ start ms-settings:easeofaccess-visualeffects
 goto ws
 
 :w3
+echo.
+echo Opening windows settings..
+timeout 1 >nul
+start ms-settings:easeofaccess-visualeffects
+goto ws
+
+:w4
 echo.
 echo Opening windows performance options..
 timeout 1 >nul
@@ -558,3 +566,4 @@ mode 63,15
 goto menu
 
 :: Credits to FrameSync Labs for giving good precised benchmarks and optimization videos i took inspiration from https://www.youtube.com/@FrameSyncLabs.
+:: Credits to this website? for networking improvements https://www.drastic.tv/support-59/supporttipstechnical/78-optimizing-windows-networking.
