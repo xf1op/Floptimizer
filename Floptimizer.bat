@@ -326,7 +326,7 @@ echo - [1] Disable Unnecessary Services
 echo - [2] Remove Common Microsoft Bloatware Apps
 echo - [3] Pause And Disable Automatic Windows Updates
 echo - [4] Disable Not Important System Drivers
-echo.
+echo - [5] Disable Unnecessary Scheduled Tasks
 echo.
 echo.
 echo - [0] Return
@@ -336,6 +336,7 @@ if '%q%'=='1' cls && goto o1
 if '%q%'=='2' cls && goto o2
 if '%q%'=='3' cls && goto o3
 if '%q%'=='4' cls && goto o4
+if '%q%'=='5' cls && goto o5
 if not '%q%'=='0' cls && goto ot
 goto menu
 
@@ -546,6 +547,19 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\CSC" /v Start /t REG_DWORD /d 4 
 echo Disabled CSC System Service
 echo.
 echo Disabled system drivers, restart recommended!  Returning.. && timeout 2 >nul && goto ot
+
+:o5
+echo Gathering list of tasks from internet...
+md %temp%\Floptimizer
+powershell -NoProfile -command "Invoke-WebRequest -Uri https://raw.githubusercontent.com/xf1op/Floptimizer/refs/heads/main/scheduledtasks.txt -OutFile %temp%\Floptimizer\tasklist.txt"
+echo Gathered tasks, processing command.
+timeout 1 >nul
+for /f "usebackq delims=" %%a in ("%temp%\Floptimizer\tasklist.txt") do (
+    schtasks /change /disable /TN "%%a"
+)
+rd %temp%\Floptimizer /s /q 2>nul >nul
+cls
+echo Disabled unnecessary scheduled tasks!  Returning.. && timeout 2 >nul && goto ot
 
 :in
 mode 90,15
