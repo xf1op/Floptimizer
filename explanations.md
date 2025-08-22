@@ -16,3 +16,5 @@
 | **Disabling unnecessary services** | means turning off unnecessary background processes your system constantly runs, which frees up CPU, RAM, and slightly improves performance. |
 | **Removing common bloatware** | means uninstalling pre-installed apps and software that you don’t need or use, which often come bundled with Windows or from PC manufacturers. |
 | **Disabling Windows updates** | stops your system from downloading and installing updates without asking you first. This gives you more control over when updates happen, which can help avoid interruptions or performance issues during gaming or work. |
+
+- Scheduled tasks in [scheduledtasks.txt](https://github.com/xf1op/Floptimizer/blob/main/scheduledtasks.txt) are safe to disable!
