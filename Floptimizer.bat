@@ -107,8 +107,8 @@ netsh int udp set global uro=disabled >nul
 echo Enhanced UDP connection!  Returning.. && timeout 2 >nul && goto no
 
 :n4
-:: Network throttling index set to maximum value
-reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /t REG_DWORD /d 0xffffffff /f >nul
+:: Network throttling (default)
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v NetworkThrottlingIndex /t REG_DWORD /d 0x0000000a /f >nul
 echo Throttling disabled!  Returning.. && timeout 2 >nul && goto no
 
 :: Latency fixes
@@ -145,12 +145,13 @@ cls
 echo Disabled!  Returning.. && timeout 2 >nul && goto lf
 
 :l2
-:: Fixes latency by setting power plan idle demote/promote to 100% within "core parking minimum cores" AND increases performance by disabling link state power management (off)
+:: Fixes latency by setting power plan idle demote/promote to 100% within "core parking minimum cores" AND increases performance by disabling link state power management (off) (and enables selective usb suspending for less power usage and slight better fps - https://youtu.be/Tf3dXzXyKHA?t=287 )
 for /f "tokens=3" %%i in ('reg query "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes" /v ActivePowerScheme') do set app=%%i
 powercfg -setacvalueindex %app% 54533251-82be-4824-96c1-47b60b740d00 0cc5b647-c1df-4637-891a-dec35c318583 100 >nul
 powercfg -setacvalueindex %app% 54533251-82be-4824-96c1-47b60b740d00 4b92d758-5a24-4851-a470-815d78aee119 100 >nul
 powercfg -setacvalueindex %app% 54533251-82be-4824-96c1-47b60b740d00 7b224883-b3cc-4d79-819f-8374152cbe7c 100 >nul
 powercfg -setacvalueindex %app% 501a4d13-42af-4429-9fd1-a8218c268e20 ee12f906-d277-404b-b6da-e5fa1a576df5 0 >nul
+powercfg -setacvalueindex %app% 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1 >nul
 echo Enhanced power plan!  Returning.. && timeout 2 >nul && goto lf
 
 :l3
@@ -178,7 +179,7 @@ echo - [2] Disable Hardware Accelerated GPU Scheduling
 echo - [3] Disable Game DVR
 echo - [4] Maximize Performance Of Priority Separation
 echo - [5] Reduce Low Priority Task CPU Usage
-echo - [6] Disable Power Throttling
+echo - [6] Tweak System And Other Things
 echo.
 echo - [0] Return
 echo.
@@ -219,9 +220,19 @@ reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProf
 echo Reduced!  Returning.. && timeout 2 >nul && goto gt
 
 :g6
-:: Disable system power throttling
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 1 /f >nul
-echo Disabled throttling!  Returning.. && timeout 2 >nul && goto gt
+:: Tweaks system and some other things like kernel and bcd to improve performance and average fps (some values are default because it performs better)
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling" /v PowerThrottlingOff /t REG_DWORD /d 0 /f >nul
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v Priority /t REG_DWORD /d 2 /f >nul
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Scheduling Category" /t REG_SZ /d Medium /f >nul
+reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "SFIO Priority" /t REG_SZ /d Normal /f >nul
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettings /t REG_DWORD /d 1 /f >nul
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettingsOverride /t REG_DWORD /d 3 /f >nul
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettingsOverrideMask /t REG_DWORD /d 3 /f >nul
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v LargeSystemCache /t REG_DWORD /d 0 /f >nul
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v SerializeTimerExpiration /t REG_DWORD /d 0 /f >nul
+bcdedit /set useplatformtick yes >nul
+bcdedit /set disabledynamictick yes >nul
+echo Tweaked the system!  Returning.. && timeout 2 >nul && goto gt
 
 ::Windows Settings
 :ws
